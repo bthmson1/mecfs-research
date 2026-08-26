@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow"
+    >
+
+    <title>
+        Research Administration | ME/CFS Research
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/styles.css"
+    >
+
+</head>
+
+
+<body class="admin-body">
+
+
+<main class="admin-shell">
+
+
+<!-- =====================================================
+     ADMIN LOGIN
+===================================================== -->
+
+<section
+    class="admin-login-card"
+    id="adminLogin"
+>
+
+    <p class="eyebrow">
+        PRIVATE RESEARCH AREA
+    </p>
+
+    <h1>
+        Research Administration
+    </h1>
+
+    <p class="admin-login-description">
+        Sign in with the administrator account
+        connected to this research project.
+    </p>
+
+
+    <form id="adminLoginForm">
+
+
+        <div class="form-group">
+
+            <label for="adminEmail">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="adminEmail"
+                required
+                autocomplete="email"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="adminPassword">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="adminPassword"
+                required
+                autocomplete="current-password"
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="button primary-button"
+            id="adminLoginButton"
+        >
+            Sign In
+        </button>
+
+
+        <p
+            id="adminStatus"
+            class="admin-status"
+            role="status"
+            aria-live="polite"
+        ></p>
+
+
+    </form>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRIVATE DASHBOARD
+===================================================== -->
+
+<section
+    id="adminDashboard"
+    class="admin-dashboard"
+    hidden
+>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="dashboard-header">
+
+    <div>
+
+        <p class="eyebrow">
+            PRIVATE RESEARCH AREA
+        </p>
+
+        <h1>
+            ME/CFS Research Dashboard
+        </h1>
+
+        <p>
+            View anonymous questionnaire responses,
+            explore patterns, and compare
+            participant-reported groups.
+        </p>
+
+    </div>
+
+
+    <div class="dashboard-header-actions">
+
+        <button
+            type="button"
+            id="refreshDashboard"
+            class="admin-secondary-button"
+        >
+            Refresh Data
+        </button>
+
+        <button
+            type="button"
+            id="adminLogout"
+            class="admin-secondary-button"
+        >
+            Sign Out
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     RESEARCH NOTICE
+===================================================== -->
+
+<div class="admin-data-notice">
+
+    <strong>
+        Exploratory questionnaire data
+    </strong>
+
+    <p>
+        Information shown here represents participant
+        self-reports. Diagnostic status means the status
+        reported by the participant. This dashboard does
+        not diagnose ME/CFS, verify medical diagnoses,
+        estimate prevalence, or establish causation.
+    </p>
+
+</div>
+
+
+
+<!-- =====================================================
+     OVERVIEW
+===================================================== -->
+
+<section
+    class="dashboard-section"
+    aria-labelledby="summaryHeading"
+>
+
+    <div class="dashboard-section-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                OVERVIEW
+            </p>
+
+            <h2 id="summaryHeading">
+                Current Dataset
+            </h2>
+
+        </div>
+
+
+        <p id="filterSummary">
+            Showing all responses
+        </p>
+
+    </div>
+
+
+
+    <div class="stat-card-grid">
+
+
+        <article class="stat-card">
+
+            <span class="stat-label">
+                Responses
+            </span>
+
+            <strong
+                class="stat-number"
+                id="statTotal"
+            >
+                0
+            </strong>
+
+            <span class="stat-description">
+                Currently displayed
+            </span>
+
+        </article>
+
+
+
+        <article class="stat-card">
+
+            <span class="stat-label">
+                Professional ME/CFS Diagnosis Reported
+            </span>
+
+            <strong
+                class="stat-number"
+                id="statDiagnosed"
+            >
+                0
+            </strong>
+
+            <span class="stat-description">
+                Self-reported diagnostic status
+            </span>
+
+        </article>
+
+
+
+        <article class="stat-card">
+
+            <span class="stat-label">
+                Professional POTS Diagnosis Reported
+            </span>
+
+            <strong
+                class="stat-number"
+                id="statPots"
+            >
+                0
+            </strong>
+
+            <span class="stat-description">
+                Participant selected diagnosed POTS
+            </span>
+
+        </article>
+
+
+
+        <article class="stat-card">
+
+            <span class="stat-label">
+                Average PEM Severity
+            </span>
+
+            <strong
+                class="stat-number"
+                id="statSeverity"
+            >
+                —
+            </strong>
+
+            <span class="stat-description">
+                Among responses with a rating
+            </span>
+
+        </article>
+
+
+
+        <article class="stat-card">
+
+            <span class="stat-label">
+                No Return to Previous Baseline
+            </span>
+
+            <strong
+                class="stat-number"
+                id="statBaseline"
+            >
+                0
+            </strong>
+
+            <span class="stat-description">
+                Self-reported after PEM
+            </span>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FILTERS
+===================================================== -->
+
+<section
+    class="dashboard-section"
+    aria-labelledby="filterHeading"
+>
+
+    <div class="dashboard-section-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                FILTER DATA
+            </p>
+
+            <h2 id="filterHeading">
+                Explore Participant Groups
+            </h2>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="dashboard-filters">
+
+
+        <div class="dashboard-filter">
+
+            <label for="diagnosisFilter">
+                ME/CFS Diagnostic Status
+            </label>
+
+            <select id="diagnosisFilter">
+
+                <option value="">
+                    All statuses
+                </option>
+
+                <option value="formally_diagnosed">
+                    Professional diagnosis reported
+                </option>
+
+                <option value="suspected_professional">
+                    Suspected by healthcare professional
+                </option>
+
+                <option value="being_evaluated">
+                    Currently being evaluated
+                </option>
+
+                <option value="self_suspected">
+                    Self-suspected
+                </option>
+
+                <option value="uncertain">
+                    Uncertain
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="dashboard-filter">
+
+            <label for="pemOnsetFilter">
+                PEM Onset
+            </label>
+
+            <select id="pemOnsetFilter">
+
+                <option value="">
+                    All timing
+                </option>
+
+                <option value="during">
+                    During activity
+                </option>
+
+                <option value="immediately_after">
+                    Immediately afterward
+                </option>
+
+                <option value="few_hours">
+                    Within a few hours
+                </option>
+
+                <option value="6_12_hours">
+                    6–12 hours later
+                </option>
+
+                <option value="12_24_hours">
+                    12–24 hours later
+                </option>
+
+                <option value="24_48_hours">
+                    24–48 hours later
+                </option>
+
+                <option value="over_48_hours">
+                    More than 48 hours later
+                </option>
+
+                <option value="varies">
+                    Timing varies
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="dashboard-filter">
+
+            <label for="potsFilter">
+                Reported POTS Diagnosis
+            </label>
+
+            <select id="potsFilter">
+
+                <option value="">
+                    All participants
+                </option>
+
+                <option value="yes">
+                    Professional POTS diagnosis reported
+                </option>
+
+                <option value="no">
+                    Professional POTS diagnosis not reported
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="dashboard-filter">
+
+            <label for="participantSearch">
+                Participant Code
+            </label>
+
+            <input
+                type="search"
+                id="participantSearch"
+                placeholder="Example: P-8A103D"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+    </div>
+
+
+
+    <button
+        type="button"
+        id="clearFilters"
+        class="admin-secondary-button"
+    >
+        Clear Filters
+    </button>
+
+</section>
+
+
+
+<!-- =====================================================
+     BASIC CHARTS
+===================================================== -->
+
+<section
+    class="dashboard-section"
+    aria-labelledby="patternsHeading"
+>
+
+    <div class="dashboard-section-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                EXPLORATORY PATTERNS
+            </p>
+
+            <h2 id="patternsHeading">
+                Current Response Patterns
+            </h2>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="chart-grid">
+
+
+        <article class="chart-card">
+
+            <div class="chart-card-heading">
+
+                <h3>
+                    PEM Onset Timing
+                </h3>
+
+                <p>
+                    Number of responses reported
+                    in each timing category.
+                </p>
+
+            </div>
+
+
+            <div class="chart-container">
+
+                <canvas
+                    id="pemOnsetChart"
+                    aria-label="Chart showing reported PEM onset timing"
+                    role="img"
+                ></canvas>
+
+            </div>
+
+        </article>
+
+
+
+        <article class="chart-card">
+
+            <div class="chart-card-heading">
+
+                <h3>
+                    Typical PEM Severity
+                </h3>
+
+                <p>
+                    Distribution of participant-reported
+                    PEM severity ratings.
+                </p>
+
+            </div>
+
+
+            <div class="chart-container">
+
+                <canvas
+                    id="severityChart"
+                    aria-label="Chart showing participant-reported PEM severity"
+                    role="img"
+                ></canvas>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+
+    <article class="chart-card wide-chart-card">
+
+        <div class="chart-card-heading">
+
+            <h3>
+                Most Frequently Selected Symptoms
+            </h3>
+
+            <p>
+                Structured symptom selections across
+                autonomic, physical, cognitive, sleep,
+                and other symptom categories.
+            </p>
+
+        </div>
+
+
+        <div class="large-chart-container">
+
+            <canvas
+                id="symptomChart"
+                aria-label="Chart showing frequently reported symptoms"
+                role="img"
+            ></canvas>
+
+        </div>
+
+    </article>
+
+</section>
+
+
+
+<!-- =====================================================
+     COMPARISON ENGINE
+===================================================== -->
+
+<section
+    class="dashboard-section comparison-section"
+    aria-labelledby="comparisonHeading"
+>
+
+    <div class="dashboard-section-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                GROUP COMPARISON
+            </p>
+
+            <h2 id="comparisonHeading">
+                Compare Participant-Reported Groups
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="comparison-notice">
+
+        <strong>
+            How to interpret this
+        </strong>
+
+        <p>
+            Comparisons describe differences within
+            submitted questionnaire responses only.
+            They do not determine whether a participant
+            has ME/CFS and do not show that one factor
+            causes another.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         GROUP SELECTION
+    ================================================== -->
+
+    <div class="comparison-builder">
+
+
+        <!-- GROUP A -->
+
+        <div class="comparison-group-card">
+
+            <div class="comparison-group-heading">
+
+                <span class="comparison-group-letter">
+                    A
+                </span>
+
+                <div>
+
+                    <h3>
+                        Group A
+                    </h3>
+
+                    <p>
+                        Choose the first participant group.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="comparison-control">
+
+                <label for="groupAType">
+                    Group
+                </label>
+
+                <select id="groupAType">
+
+                    <option value="diagnosed">
+                        Professional ME/CFS diagnosis reported
+                    </option>
+
+                    <option value="suspected_professional">
+                        ME/CFS suspected by healthcare professional
+                    </option>
+
+                    <option value="being_evaluated">
+                        Currently being evaluated
+                    </option>
+
+                    <option value="self_suspected">
+                        Self-suspected ME/CFS
+                    </option>
+
+                    <option value="uncertain">
+                        Uncertain diagnostic status
+                    </option>
+
+                    <option value="pots">
+                        Professional POTS diagnosis reported
+                    </option>
+
+                    <option value="no_pots">
+                        Professional POTS diagnosis not reported
+                    </option>
+
+                    <option value="pem_during">
+                        PEM begins during activity
+                    </option>
+
+                    <option value="pem_delayed">
+                        PEM begins after activity
+                    </option>
+
+                    <option value="physical_trigger">
+                        Physical exertion reported as trigger
+                    </option>
+
+                    <option value="cognitive_trigger">
+                        Cognitive exertion reported as trigger
+                    </option>
+
+                    <option value="gradual_onset">
+                        Gradual illness onset
+                    </option>
+
+                    <option value="sudden_onset">
+                        Sudden illness onset
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="comparison-group-count">
+
+                <span>
+                    Participants
+                </span>
+
+                <strong id="groupACount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <div
+            class="comparison-versus"
+            aria-hidden="true"
+        >
+            VS
+        </div>
+
+
+
+        <!-- GROUP B -->
+
+        <div class="comparison-group-card">
+
+            <div class="comparison-group-heading">
+
+                <span class="comparison-group-letter">
+                    B
+                </span>
+
+                <div>
+
+                    <h3>
+                        Group B
+                    </h3>
+
+                    <p>
+                        Choose the comparison group.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="comparison-control">
+
+                <label for="groupBType">
+                    Group
+                </label>
+
+                <select id="groupBType">
+
+                    <option value="self_suspected">
+                        Self-suspected ME/CFS
+                    </option>
+
+                    <option value="diagnosed">
+                        Professional ME/CFS diagnosis reported
+                    </option>
+
+                    <option value="suspected_professional">
+                        ME/CFS suspected by healthcare professional
+                    </option>
+
+                    <option value="being_evaluated">
+                        Currently being evaluated
+                    </option>
+
+                    <option value="uncertain">
+                        Uncertain diagnostic status
+                    </option>
+
+                    <option value="pots">
+                        Professional POTS diagnosis reported
+                    </option>
+
+                    <option value="no_pots">
+                        Professional POTS diagnosis not reported
+                    </option>
+
+                    <option value="pem_during">
+                        PEM begins during activity
+                    </option>
+
+                    <option value="pem_delayed">
+                        PEM begins after activity
+                    </option>
+
+                    <option value="physical_trigger">
+                        Physical exertion reported as trigger
+                    </option>
+
+                    <option value="cognitive_trigger">
+                        Cognitive exertion reported as trigger
+                    </option>
+
+                    <option value="gradual_onset">
+                        Gradual illness onset
+                    </option>
+
+                    <option value="sudden_onset">
+                        Sudden illness onset
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="comparison-group-count">
+
+                <span>
+                    Participants
+                </span>
+
+                <strong id="groupBCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         OUTCOME SELECTION
+    ================================================== -->
+
+    <div class="comparison-outcome-panel">
+
+        <div>
+
+            <p class="eyebrow">
+                COMPARE BY
+            </p>
+
+            <h3>
+                What would you like to compare?
+            </h3>
+
+        </div>
+
+
+        <div class="comparison-control comparison-outcome-control">
+
+            <label for="comparisonOutcome">
+                Outcome
+            </label>
+
+            <select id="comparisonOutcome">
+
+                <option value="pem_onset">
+                    PEM onset timing
+                </option>
+
+                <option value="pem_severity">
+                    PEM severity
+                </option>
+
+                <option value="symptoms">
+                    Most frequently reported symptoms
+                </option>
+
+                <option value="baseline">
+                    Return to previous baseline
+                </option>
+
+                <option value="pem_triggers">
+                    PEM triggers
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="runComparison"
+            class="button primary-button"
+        >
+            Compare Groups
+        </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         COMPARISON SUMMARY
+    ================================================== -->
+
+    <div
+        id="comparisonResults"
+        class="comparison-results"
+    >
+
+        <div class="comparison-result-header">
+
+            <div>
+
+                <p class="eyebrow">
+                    COMPARISON RESULTS
+                </p>
+
+                <h3 id="comparisonResultTitle">
+                    Professional diagnosis reported
+                    vs. self-suspected
+                </h3>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- GROUP SUMMARY CARDS -->
+
+        <div class="comparison-summary-grid">
+
+
+            <article class="comparison-summary-card">
+
+                <span class="comparison-summary-label">
+                    Group A
+                </span>
+
+                <strong id="comparisonAName">
+                    Professional diagnosis reported
+                </strong>
+
+                <div class="comparison-mini-stat">
+
+                    <span>
+                        Participants
+                    </span>
+
+                    <strong id="comparisonATotal">
+                        0
+                    </strong>
+
+                </div>
+
+                <div class="comparison-mini-stat">
+
+                    <span>
+                        Average PEM severity
+                    </span>
+
+                    <strong id="comparisonASeverity">
+                        —
+                    </strong>
+
+                </div>
+
+                <div class="comparison-mini-stat">
+
+                    <span>
+                        POTS reported
+                    </span>
+
+                    <strong id="comparisonAPots">
+                        —
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+
+            <article class="comparison-summary-card">
+
+                <span class="comparison-summary-label">
+                    Group B
+                </span>
+
+                <strong id="comparisonBName">
+                    Self-suspected
+                </strong>
+
+                <div class="comparison-mini-stat">
+
+                    <span>
+                        Participants
+                    </span>
+
+                    <strong id="comparisonBTotal">
+                        0
+                    </strong>
+
+                </div>
+
+                <div class="comparison-mini-stat">
+
+                    <span>
+                        Average PEM severity
+                    </span>
+
+                    <strong id="comparisonBSeverity">
+                        —
+                    </strong>
+
+                </div>
+
+                <div class="comparison-mini-stat">
+
+                    <span>
+                        POTS reported
+                    </span>
+
+                    <strong id="comparisonBPots">
+                        —
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+
+
+        <!-- COMPARISON CHART -->
+
+        <article class="chart-card comparison-chart-card">
+
+            <div class="chart-card-heading">
+
+                <h3 id="comparisonChartHeading">
+                    PEM Onset Timing
+                </h3>
+
+                <p id="comparisonChartDescription">
+                    Comparison of response percentages
+                    between the two selected groups.
+                </p>
+
+            </div>
+
+
+            <div class="comparison-chart-container">
+
+                <canvas
+                    id="comparisonChart"
+                    aria-label="Chart comparing two participant groups"
+                    role="img"
+                ></canvas>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- DATA TABLE -->
+
+        <div class="comparison-table-wrapper">
+
+            <table class="comparison-table">
+
+                <caption class="visually-hidden">
+                    Comparison of selected participant groups
+                </caption>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th scope="col">
+                            Measure
+                        </th>
+
+                        <th
+                            scope="col"
+                            id="comparisonTableAHeading"
+                        >
+                            Group A
+                        </th>
+
+                        <th
+                            scope="col"
+                            id="comparisonTableBHeading"
+                        >
+                            Group B
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="comparisonTableBody">
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+
+        <!-- INTERPRETATION -->
+
+        <div class="comparison-interpretation">
+
+            <strong>
+                Interpretation reminder
+            </strong>
+
+            <p>
+                Differences shown here are descriptive.
+                A higher percentage in one group does not
+                mean the group characteristic caused the
+                outcome. Sample size, self-reporting,
+                selection effects, other diagnoses, and
+                many other factors may influence these
+                results.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     INDIVIDUAL RESPONSES
+===================================================== -->
+
+<section
+    class="dashboard-section"
+    aria-labelledby="participantHeading"
+>
+
+    <div class="dashboard-section-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                PARTICIPANTS
+            </p>
+
+            <h2 id="participantHeading">
+                Individual Anonymous Responses
+            </h2>
+
+        </div>
+
+
+        <p id="responseCount">
+            0 responses
+        </p>
+
+    </div>
+
+
+
+    <div class="table-scroll">
+
+        <table class="response-table">
+
+
+            <caption class="visually-hidden">
+                Anonymous participant questionnaire
+                responses
+            </caption>
+
+
+            <thead>
+
+                <tr>
+
+                    <th scope="col">
+                        Participant
+                    </th>
+
+                    <th scope="col">
+                        Submitted
+                    </th>
+
+                    <th scope="col">
+                        Diagnostic Status
+                    </th>
+
+                    <th scope="col">
+                        PEM Onset
+                    </th>
+
+                    <th scope="col">
+                        PEM Severity
+                    </th>
+
+                    <th scope="col">
+                        POTS Reported
+                    </th>
+
+                    <th scope="col">
+                        Full Response
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="responsesTableBody">
+            </tbody>
+
+
+        </table>
+
+    </div>
+
+
+
+    <div
+        id="emptyResponses"
+        class="empty-responses"
+        hidden
+    >
+        No responses match the current filters.
+    </div>
+
+</section>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FULL PARTICIPANT RESPONSE
+===================================================== -->
+
+<dialog
+    id="participantDialog"
+    class="participant-dialog"
+>
+
+
+    <div class="participant-dialog-header">
+
+        <div>
+
+            <p class="eyebrow">
+                ANONYMOUS PARTICIPANT RESPONSE
+            </p>
+
+            <h2 id="dialogParticipantCode">
+                Participant
+            </h2>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="closeParticipantDialog"
+            class="dialog-close-button"
+            aria-label="Close participant response"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+
+    <div
+        id="participantDetailContent"
+        class="participant-detail-content"
+    >
+    </div>
+
+
+</dialog>
+
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+
+<!-- =====================================================
+     CHART.JS
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js"
+></script>
+
+
+
+<!-- =====================================================
+     PROJECT JAVASCRIPT
+===================================================== -->
+
+<script src="../js/supabase.js"></script>
+
+<script src="../js/admin.js"></script>
+
+
+</body>
+
+</html>
